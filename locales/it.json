@@ -1,0 +1,19 @@
+{
+	"fas fa-home": "fas fa-home",
+	"Home": "Home",
+	"fas fa-shopping-basket": "fas fa-shopping-basket",
+	"Grocery": "Grocery",
+	"fas bread-slice": "fas bread-slice",
+	"Types": "Types",
+	"fas fa-users": "fas fa-users",
+	"Users": "Users",
+	"fas fa-sign-out-alt": "fas fa-sign-out-alt",
+	"Logout": "Logout",
+	"We don't spend more time on security, so do not use your Bank password": "We don't spend more time on security, so do not use your Bank password",
+	"Login": "Login",
+	"Email": "Email",
+	"Password": "Password",
+	"SignIn with Facebook": "SignIn with Facebook",
+	"SignIn with Google": "SignIn with Google",
+	"SignIn with GitHub": "SignIn with GitHub"
+}
