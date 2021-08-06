@@ -2,7 +2,7 @@ const env = require('dotenv').config();
 const express = require('express');
 const path = require('path');
 //const cookieParser = require("cookie-parser");
-//const sessions = require('express-session');
+const sessions = require('express-session');
 const { I18n } = require('i18n');
 
 let Template = require('./templates');
@@ -57,6 +57,17 @@ const i18n = new I18n({
  auth.deserialize();
 
 
+ const oneDay = 1000 * 60 * 60 * 24;
+ const tenMinutes = 1000 * 60 * 10;
+ const oneMinute = 1000 * 60;
+
+app.use(sessions({
+    secret: "admin",
+    saveUninitialized: true,
+    cookie: { maxAge: tenMinutes },
+    resave: false 
+}));
+
 
 app.set('appName','Shopping List');
 
@@ -70,7 +81,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use(i18n.init);
-
+app.use(auth.init());
+app.use(auth.session());
 
 
 
@@ -86,10 +98,36 @@ app.get('/',function(req,res){
 	template.myRender(res,'main');
 });
 
-
 app.get('/register', (req,res)=>{ template.myRender(res,'register') });
 app.get('/login', (req, res)=>{ template.myRender(res, 'main')});
 
+
+app.post('/login', async(req, res)=>{
+	console.log("login");
+	let result = await auth.loginAuth({'email':req.body.email,'password':req.body.password})
+	if(result){
+		req.session.user = result[0];
+		req.session.loggedIn = true;
+		
+		res.redirect('/home');
+	}
+	else res.redirect('/login');
+})
+
+
+app.post('/register', async(req, res)=>{
+	console.log("register");
+	console.log("register",req.body);
+	let result = await auth.registerAuth(req.body);
+	if(result){
+		console.log("result post ");
+		console.log(result);
+		req.session.user = result[0];
+		req.session.loggedIn = true;
+		res.redirect('/home');
+	}
+	else res.redirect('/login');
+});
 
 app.get('/logout',(req,res) => {
     req.session.destroy();
