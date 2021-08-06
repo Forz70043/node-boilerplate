@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "NodeJS Express EJS MySQL boilerplate",
   "main": "index.js",
+  "private":"true",
   "scripts": {
     "start": "nodemon server.js",
     "dev": "nodemon server.js",
