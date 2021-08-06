@@ -1,7 +1,7 @@
 const env = require('dotenv').config();
 const express = require('express');
 const path = require('path');
-//const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const { I18n } = require('i18n');
 
@@ -15,6 +15,9 @@ let template = new Template();
  let authRoute = require('./routes/auth');
  let loginRoute = require('./routes/login');
  let usersRoute = require('./routes/users');
+ let homeRoute = require('./routes/home');
+
+
 
 //MODELS
 let Auth = require('./mvc/models/auth');
@@ -52,7 +55,8 @@ const i18n = new I18n({
  app.use('/auth', authRoute);
  app.use('/login', loginRoute);
  app.use('/users', usersRoute);
- 
+ app.use('/home', homeRoute);
+
  auth.serialize();
  auth.deserialize();
 
@@ -60,13 +64,6 @@ const i18n = new I18n({
  const oneDay = 1000 * 60 * 60 * 24;
  const tenMinutes = 1000 * 60 * 10;
  const oneMinute = 1000 * 60;
-
-app.use(sessions({
-    secret: "admin",
-    saveUninitialized: true,
-    cookie: { maxAge: tenMinutes },
-    resave: false 
-}));
 
 
 app.set('appName','Shopping List');
@@ -85,6 +82,16 @@ app.use(auth.init());
 app.use(auth.session());
 
 
+// cookie parser middleware
+app.use(cookieParser());
+
+
+app.use(sessions({
+    secret: "admin",
+    saveUninitialized: true,
+    cookie: { maxAge: tenMinutes },
+    resave: false 
+}));
 
 
 /*
@@ -95,17 +102,18 @@ app.get('/',function(req,res){
 	//inserire logica se già auth
 	//res.render(app.get('templateIndex'),{login: 1, filename:false, links: false/*['home']*/});
 	console.log(req.session)
-	template.myRender(res,'main');
+	template.myRender(res,'login');
 });
 
 app.get('/register', (req,res)=>{ template.myRender(res,'register') });
-app.get('/login', (req, res)=>{ template.myRender(res, 'main')});
+app.get('/login', (req, res)=>{ template.myRender(res, 'login')});
 
 
 app.post('/login', async(req, res)=>{
 	console.log("login");
 	let result = await auth.loginAuth({'email':req.body.email,'password':req.body.password})
 	if(result){
+		console.log("RESULT VERO", result[0]);
 		req.session.user = result[0];
 		req.session.loggedIn = true;
 		
