@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('./component/head'); %>
+	</head>
+	<body>
+
+		<%- include('./component/navbar'); %>	
+
+		<%- include('./component/sidebar'); %>
+		<div class="container mb-5">
+			<div class="row">
+				<div class="col">
+					<% if (links) { %>
+						<div class="row">
+							<%- include('./component/breadcrumb'); %>
+						</div>
+					<% } %>
+
+
+
+					<% if (login) { %>
+						<%- include('main'); %>
+
+					<%} else if(filename !=false) { %>
+						
+						<%- include(filename); %>
+						
+					<% } %> 
+				
+				
+				</div>
+			</div>
+		</div>
+
+
+		<%- include('./component/footer'); %>
+		<%- include('./component/lib-script'); %>
+	</body>
+</html>

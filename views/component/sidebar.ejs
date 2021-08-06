@@ -1,0 +1,19 @@
+<div id="sidebarCol" class="">
+    <!-- Button to close the overlay navigation -->
+    <!--<button type="button" class="btn btn-light btn-sm closebtn" onclick="$('#sidebarCol').css('width','0%')">&times</button>-->
+    <a href="javascript:void(0)" class="closebtn" onclick="$('#sidebarCol').css('width','0%')">&times;</a>
+    <!-- Overlay content -->
+    <div class="overlay-content">
+        <% if (sidebar) { %>
+            <% sidebar.forEach(element=> { %>
+                <a href="<%= element.link %>"><span class="fas <%= __(element.icon) %>"></span> <%= __(element.name) %></a>
+            <% }) %>
+        <% }else{ %>
+            <!-- <a href="/"><%= __('Home') %></a>
+            <a href="/groceries"><%= __('Groceries') %></a>
+            <a href="/groups"><%= __('Grocery Group') %></a>
+            <a href="/types"><%= __('Types') %></a>
+            <a href="/users"><%= __('Users') %></a> -->
+        <% } %>
+    </div>
+</div>
