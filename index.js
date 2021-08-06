@@ -111,6 +111,8 @@ app.get('/login', (req, res)=>{ template.myRender(res, 'login')});
 
 app.post('/login', async(req, res)=>{
 	console.log("login");
+	console.log(req.session);
+	console.log(req.sessions);
 	let result = await auth.loginAuth({'email':req.body.email,'password':req.body.password})
 	if(result){
 		console.log("RESULT VERO", result[0]);

@@ -114,19 +114,21 @@ class Template {
         //console.log("P: ",params);
         //console.log("OBJ: ",this.obj)
         let keyParams = Object.keys(params)
-        console.log("KP:",keyParams);
+        //console.log("KP:",keyParams);
         for(let i = 0; i<keyParams.length; i++){
             this.obj[keyParams[i]] = params[keyParams[i]];
 
             if(keyParams[i]==='rows'){
-                console.log("CHE FACCIO CON LE ROWS ??");
+                //console.log("CHE FACCIO CON LE ROWS ??");
             }
             if(keyParams[i]==='login'){
-                if(params['login']){}
+                if(params['login']){
+
+                }
             }
             if(keyParams[i]==='profile'){
                 if(this.checkAdmin(params[keyParams[i]]['role_id'])){
-                    console.log("ADMIN _________________________________________________________")
+                    //console.log("ADMIN _________________________________________________________")
                     this.obj['sidebar']=this.getFullSidebar();
                 }
             }
@@ -225,7 +227,10 @@ class Template {
         return await this.params(false,filename,links,types,rows,false,false,false,false,false,false,false,false,users, profile);
     } */
 
-    
+    /**
+     * 
+     * @returns sidebar array 
+     */
     getLogOutSidebar(){
 
         let sidebar = [

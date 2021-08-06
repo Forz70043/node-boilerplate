@@ -12,7 +12,7 @@ let users = new Users();
 
 router.get('/', async (req,res)=>{
 	//console.log("req.sess: ",req.session);
-	console.log("req.sess user: ",req.session.user);
+	//console.log("req.sess user: ",req.session.user);
     let rolesLabel = dataRoles = [];
 	if(req.session.loggedIn && req.session.user){
         let ruoli = await roles.get();

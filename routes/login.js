@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let Utils = require('../utils');
+//let Utils = require('../utils');
 var Auth = require('../mvc/models/auth');
 var GitHub = new Auth('github');
 var Google = new Auth('google');
